@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rafael Dev Sites</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    /* Ícone de menu (3 barrinhas) */
+    .menu {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .menu div {
+      width: 30px;
+      height: 4px;
+      background-color: #00ff00;
+      margin: 6px 0;
+      box-shadow: 0 0 10px #00ff00;
+    }
+    h1 {
+      font-size: 50px;
+      color: #00ff00;
+      text-shadow: 0 0 20px #00ff00;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .instagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      font-size: 20px;
+      color: #fff;
+    }
+    .instagram img {
+      width: 28px;
+      height: 28px;
+      margin-right: 10px;
+    }
+    .promo {
+      font-size: 22px;
+      margin-top: 10px;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+      text-align: center;
+    }
+    .programador {
+      margin-top: 40px;
+    }
+    .programador img {
+      width: 250px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ff00;
+    }
+    .botao {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 30px;
+      font-size: 20px;
+      color: #fff;
+      background: linear-gradient(45deg, #25D366, #128C7E);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 20px #25D366;
+      transition: 0.3s;
+    }
+    .botao:hover {
+      box-shadow: 0 0 30px #00ff00;
+      transform: scale(1.05);
+    }
+    /* Rodapé centralizado */
+    footer {
+      position: fixed;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      color: #00ff00;
+      font-size: 18px;
+    }
+    .contato {
+      display: flex;
+      align-items: center;
+    }
+    .contato img {
+      width: 24px;
+      height: 24px;
+      margin-left: 8px;
+    }
+    .html-icon {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <!-- Ícone de menu -->
+  <div class="menu" onclick="window.location.href='pagina.html'">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <h1>Rafael Dev Sites</h1>
+  <div class="instagram">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+    <span>rafaelzkx_</span>
+  </div>
+  <p class="promo">Venha criar seu site diretamente comigo<br>Promoção de Março!</p>
+    
+  <div class="programador">
+    <!-- Imagem de um programador -->
+    <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" alt="Programador">
+  </div>
+
+  <a href="https://wa.me/5519990151708" class="botao">Fale comigo no WhatsApp</a>
+
+  <footer>
+    <div class="contato">
+      <span>19990151708</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML Logo" class="html-icon">
+  </footer>
+
+  <script>
+    // Script Matrix-style
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const drops = [];
+    for (let x = 0; x < columns; x++) {
+      drops[x] = 1;
+    }
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F0';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+
+    // Ajusta ao redimensionar
+    window.addEventListener('resize', () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
+  </script>
+</body>
+</html>
